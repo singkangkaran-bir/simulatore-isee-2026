@@ -1,2 +1,5 @@
-# simulatore-isee-2026
-simulatore isee con normativa vigente 
+# Simulatore ISEE 2026
+ per il calcolo dell'ISEE aggiornato alla normativa 2026.
+### Funzionalità:
+- Calcolo basato su scala di equivalenza standard.
+- Esclusione titoli di stato fino a 50.000€.
