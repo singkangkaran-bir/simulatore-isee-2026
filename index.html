@@ -3,108 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulatore ISEE 2026 Pro</title>
+    <title>Simulatore ISEE Ordinario - Modello DSU</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="wrapper">
-        <header class="main-header">
-            <div class="logo">
-                <i class="fas fa-calculator"></i>
-                <span>Simulatore <strong>ISEE 2026</strong></span>
+    <div class="page-container">
+        <header class="gov-header">
+            <div class="gov-top">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Emblema_della_Repubblica_Italiana.svg" alt="Stemma Italia" class="emblem">
+                <div class="gov-titles">
+                    <h1>Ministero del Lavoro e delle Politiche Sociali</h1>
+                    <h2>Simulatore ISEE Ordinario - Versione 2026.1</h2>
+                </div>
             </div>
-            <p>Conforme al DPCM 159/2013 e Legge di Bilancio 2026</p>
+            <div class="doc-info">
+                <span>SIMULAZIONE NON VALIDA AI FINI LEGALI</span>
+                <span>RIF. DPCM 159/2013</span>
+            </div>
         </header>
 
-        <main class="grid-container">
-            <div class="input-side">
-                
-                <div class="glass-card">
-                    <h3><i class="fas fa-users"></i> Nucleo Familiare</h3>
-                    <div class="input-group">
-                        <label>Numero componenti</label>
-                        <input type="number" id="n_componenti" value="1" min="1">
+        <main class="dsu-form">
+            <fieldset class="dsu-section">
+                <legend>SEZIONE A - COMPOSIZIONE DEL NUCLEO FAMILIARE</legend>
+                <div class="field-row">
+                    <div class="field-group w-30">
+                        <label>Anno di simulazione</label>
+                        <select id="anno_simulazione">
+                            <option>2026</option>
+                            <option>2025</option>
+                        </select>
                     </div>
-                    <div class="checkbox-list">
-                        <div class="check-item">
-                            <input type="checkbox" id="entrambi_genitori_lavorano">
-                            <label>Entrambi i genitori lavorano (da 6+ mesi)</label>
-                        </div>
-                        <div class="check-item">
-                            <input type="checkbox" id="genitore_solo">
-                            <label>Genitore solo con figli minori</label>
-                        </div>
-                        <div class="check-item">
-                            <input type="checkbox" id="figli_minori_3">
-                            <label>Presenza figli < 3 anni</label>
-                        </div>
+                    <div class="field-group w-70">
+                        <label>Numero dei componenti il nucleo familiare</label>
+                        <input type="number" id="n_componenti" value="1" min="1">
                     </div>
                 </div>
 
-                <div class="glass-card">
-                    <h3><i class="fas fa-home"></i> Abitazione e Immobili</h3>
-                    <div class="input-group">
-                        <label>Titolo di possesso</label>
-                        <select id="tipo_casa" onchange="toggleCasa()">
-                            <option value="proprieta">Proprietà</option>
-                            <option value="locazione">In Locazione (Affitto)</option>
-                            <option value="altro">Altro / Comodato</option>
-                        </select>
+                <div class="sub-legend">Nuclei familiari con figli minori</div>
+                <div class="checkbox-group">
+                    <label class="check-container">
+                        <input type="checkbox" id="entrambi_genitori_lavorano">
+                        <span class="checkmark"></span>
+                        Entrambi i genitori hanno lavorato per almeno sei mesi.
+                    </label>
+                    <label class="check-container">
+                        <input type="checkbox" id="genitore_solo">
+                        <span class="checkmark"></span>
+                        Nucleo composto da genitore solo con figli minorenni.
+                    </label>
+                    <label class="check-container">
+                        <input type="checkbox" id="figli_minori_3">
+                        <span class="checkmark"></span>
+                        Presenza di figli con età inferiore a tre anni.
+                    </label>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group w-50">
+                        <label>Numero figli totali</label>
+                        <input type="number" id="n_figli" value="0">
                     </div>
-                    <div id="div_affitto" class="hidden">
-                        <label>Canone annuo affitto (€)</label>
-                        <input type="number" id="canone_affitto" placeholder="Es: 6000">
+                    <div class="field-group w-50">
+                        <label>Componenti disabili</label>
+                        <input type="number" id="n_disabili" value="0">
                     </div>
-                    <div id="div_proprieta" class="grid-2">
-                        <div class="input-group">
-                            <label>Valore IMU Casa (€)</label>
-                            <input type="number" id="valore_casa" placeholder="0">
+                </div>
+            </fieldset>
+
+            <fieldset class="dsu-section">
+                <legend>SEZIONE B - CASA DI ABITAZIONE DEL NUCLEO</legend>
+                <div class="field-group">
+                    <label>Tipologia di abitazione</label>
+                    <select id="tipo_casa" onchange="toggleCasa()">
+                        <option value="">-- selezionare --</option>
+                        <option value="proprieta">Di proprietà</option>
+                        <option value="locazione">In locazione</option>
+                        <option value="altro">Altro (es. comodato)</option>
+                    </select>
+                </div>
+                <div id="div_affitto" class="field-group hidden border-top">
+                    <label>Canone annuale locazione (€)</label>
+                    <input type="number" id="canone_affitto" placeholder="0,00">
+                </div>
+            </fieldset>
+
+            <fieldset class="dsu-section">
+                <legend>SEZIONE C - PATRIMONIO IMMOBILIARE AL 31/12/2024</legend>
+                <div class="note">Valori ai fini IMU al netto della quota capitale residua del mutuo.</div>
+                
+                <div id="wrapper_casa_abitazione" class="hidden">
+                    <div class="sub-legend">Immobile di abitazione</div>
+                    <div class="field-row">
+                        <div class="field-group w-50">
+                            <label>Valore IMU (€) <span class="req">*</span></label>
+                            <input type="number" id="valore_casa" placeholder="Obbligatorio">
                         </div>
-                        <div class="input-group">
-                            <label>Mutuo residuo (€)</label>
+                        <div class="field-group w-50">
+                            <label>Quota residua mutuo (€)</label>
                             <input type="number" id="mutuo_casa" placeholder="0">
                         </div>
                     </div>
                 </div>
 
-                <div class="glass-card">
-                    <h3><i class="fas fa-wallet"></i> Redditi e Risparmi</h3>
-                    <div class="input-group">
-                        <label>Redditi complessivi nucleo (€)</label>
-                        <input type="number" id="reddito_totale" placeholder="Somma redditi netti">
-                    </div>
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label>Patrimonio Mobiliare (€)</label>
-                            <input type="number" id="patr_mobiliare" placeholder="Conti e carte">
+                <div class="sub-legend">Altri immobili</div>
+                <div id="lista_altri_immobili">
+                    <div class="field-row immobile-item">
+                        <div class="field-group w-50">
+                            <label>Valore IMU altro immobile (€)</label>
+                            <input type="number" class="valore_altro" placeholder="0">
                         </div>
-                        <div class="input-group">
-                            <label>Titoli di Stato / BTP (€)</label>
-                            <input type="number" id="titoli_stato" placeholder="Esclusione 50k">
+                        <div class="field-group w-50">
+                            <label>Quota residua mutuo (€)</label>
+                            <input type="number" class="mutuo_altro" placeholder="0">
                         </div>
                     </div>
                 </div>
-
-                <button class="btn-main" onclick="eseguiCalcolo()">
-                    GENERA SIMULAZIONE <i class="fas fa-chevron-right"></i>
+                <button type="button" class="btn-add" onclick="aggiungiImmobile()">
+                    <i class="fas fa-plus"></i> AGGIUNGI ALTRO IMMOBILE
                 </button>
+            </fieldset>
+
+            <div class="field-row">
+                <fieldset class="dsu-section w-50">
+                    <legend>SEZIONE D - PATRIMONIO MOBILIARE</legend>
+                    <div class="field-group">
+                        <label>D1 - Saldo/Giacenza (maggiore tra i due)</label>
+                        <input type="number" id="patr_mobiliare">
+                    </div>
+                    <div class="field-group">
+                        <label>D2 - Titoli di Stato / BTP</label>
+                        <input type="number" id="titoli_stato">
+                    </div>
+                </fieldset>
+
+                <fieldset class="dsu-section w-50">
+                    <legend>SEZIONE E - REDDITI NUCLEO</legend>
+                    <div class="field-group">
+                        <label>Somma dei redditi netti nucleo</label>
+                        <input type="number" id="reddito_totale" step="0.01">
+                        <p class="field-note">Riferiti al secondo anno precedente.</p>
+                    </div>
+                </fieldset>
             </div>
 
-            <div class="output-side">
-                <div id="risultato" class="result-card hidden">
-                    <div class="result-header">Risultato Elaborato</div>
-                    <div class="isee-value">€ <span id="res_isee">0,00</span></div>
-                    <div class="stats">
-                        <div class="stat-item"><span>ISR (Reddito)</span> <b id="res_isr">0</b></div>
-                        <div class="stat-item"><span>ISP (Patrimonio)</span> <b id="res_isp">0</b></div>
-                        <div class="stat-item"><span>Parametro SE</span> <b id="res_se">0</b></div>
-                    </div>
-                    <div class="info-box">
-                        <i class="fas fa-info-circle"></i>
-                        Questo calcolo include le franchigie 2026 sui titoli di stato e sulla prima casa.
-                    </div>
-                </div>
+            <div class="actions">
+                <button type="button" class="btn-gov" onclick="eseguiCalcolo()">CALCOLA SIMULAZIONE ISEE</button>
+                <button type="button" class="btn-outline" onclick="window.print()">STAMPA MODELLO</button>
+            </div>
+
+            <div id="risultato" class="hidden">
+                <fieldset class="dsu-section result-box">
+                    <legend>SEZIONE F - RISULTATO DELLA SIMULAZIONE</legend>
+                    <table class="result-table">
+                        <tr><th>Parametro</th><th>Valore Elaborato</th></tr>
+                        <tr><td>Situazione Reddituale (ISR)</td><td id="res_isr">€ 0,00</td></tr>
+                        <tr><td>Situazione Patrimoniale (ISP)</td><td id="res_isp">€ 0,00</td></tr>
+                        <tr><td>Scala Equivalenza (SE)</td><td id="res_se">0,00</td></tr>
+                        <tr class="total-row"><td>VALORE ISEE ORDINARIO</td><td id="res_isee">€ 0,00</td></tr>
+                    </table>
+                </fieldset>
             </div>
         </main>
     </div>
