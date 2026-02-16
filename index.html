@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulatore ISEE 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulatore ISEE 2026 🇮🇹</h1>
+        <p>Progetto Scolastico - Calcolo basato su normativa 2026</p>
+        
+        <div class="form-group">
+            <label>Componenti nucleo familiare:</label>
+            <input type="number" id="componenti" value="1" min="1">
+        </div>
+
+        <div class="form-group">
+            <label>Somma Redditi Netti (ISR):</label>
+            <input type="number" id="reddito" placeholder="Somma redditi 2024">
+        </div>
+
+        <div class="form-group">
+            <label>Patrimonio Mobiliare (Conti, Azioni):</label>
+            <input type="number" id="mobiliare" placeholder="Saldo + Giacenza media">
+        </div>
+
+        <div class="form-group">
+            <label>Titoli di Stato (da escludere fino a 50k):</label>
+            <input type="number" id="titoliStato" value="0">
+        </div>
+
+        <button onclick="calcola()">Calcola ISEE</button>
+
+        <div id="risultato" class="result-box" style="display:none;">
+            <h3>Il tuo ISEE stimato è:</h3>
+            <span id="valoreIsee">0.00</span> €
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
