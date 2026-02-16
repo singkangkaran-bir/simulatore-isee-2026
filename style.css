@@ -1,13 +1,158 @@
-body { font-family: Arial, sans-serif; background-color: #f0f2f5; color: #333; margin: 0; padding: 20px; }
-.main-container { max-width: 900px; margin: auto; }
-header { background: #003366; color: white; padding: 15px; border-radius: 8px 8px 0 0; text-align: center; }
-.card { background: white; padding: 20px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 0 0 4px 4px; }
-h2 { color: #003366; font-size: 1.1rem; border-bottom: 2px solid #003366; padding-bottom: 5px; }
-.row { margin: 10px 0; display: flex; align-items: center; justify-content: space-between; }
-label { font-weight: bold; font-size: 0.9rem; flex: 1; }
-input, select { padding: 8px; width: 200px; border: 1px solid #999; }
-.checkbox-group { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; font-size: 0.85rem; }
-.btn-calcola { background: #d9534f; color: white; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.2rem; }
-.result-card { background: #e9f5ff; border: 2px solid #003366; }
-.res-line { font-size: 1rem; margin: 5px 0; }
-.res-final { font-size: 1.5rem; color: #d9534f; font-weight: bold; margin-top: 10px; border-top: 1px solid #ccc; padding-top: 10px; }
+:root {
+    --primary: #003366;
+    --secondary: #0056b3;
+    --accent: #e74c3c;
+    --bg: #f8f9fa;
+    --text: #2d3436;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px;
+}
+
+.glass-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border: 1px solid #e1e8ed;
+}
+
+h3 {
+    margin-top: 0;
+    color: var(--primary);
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.checkbox-list {
+    background: #f1f3f5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+}
+
+.btn-main {
+    width: 100%;
+    padding: 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-main:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+
+/* Risultati */
+.result-card {
+    background: linear-gradient(135deg, #003366 0%, #0056b3 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    position: sticky;
+    top: 20px;
+    text-align: center;
+}
+
+.isee-value {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 20px 0;
+}
+
+.stats {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 20px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.hidden { display: none; }
+
+@media (max-width: 768px) {
+    .grid-container { grid-template-columns: 1fr; }
+}

@@ -3,91 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulatore ISEE Ordinario 2026</title>
+    <title>Simulatore ISEE 2026 Pro</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="main-container">
-        <header>
-            <h1>Simulazione del Calcolo dell'ISEE Ordinario</h1>
+    <div class="wrapper">
+        <header class="main-header">
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+                <span>Simulatore <strong>ISEE 2026</strong></span>
+            </div>
+            <p>Conforme al DPCM 159/2013 e Legge di Bilancio 2026</p>
         </header>
 
-        <section class="card">
-            <h2>Sezione A - Informazioni sulla composizione del nucleo</h2>
-            <div class="row">
-                <label>Anno di simulazione:</label>
-                <select id="anno"><option>2026</option></select>
-            </div>
-            <div class="row">
-                <label>Numero componenti nucleo:</label>
-                <input type="number" id="n_componenti" value="1" min="1">
-            </div>
-            <div class="checkbox-group">
-                <label><input type="checkbox" id="entrambi_genitori_lavorano"> Entrambi i genitori (o unico genitore) hanno lavorato 6+ mesi</label>
-                <label><input type="checkbox" id="genitore_solo"> Nucleo composto esclusivamente da genitore solo con figli minorenni</label>
-                <label><input type="checkbox" id="figli_minori_3"> Presenza figli < 3 anni</label>
-            </div>
-            <div class="row">
-                <label>Numero figli totali:</label>
-                <input type="number" id="n_figli" value="0">
-            </div>
-            <div class="row">
-                <label>Componenti disabili (Medi/Gravi/Non autosufficienti):</label>
-                <input type="number" id="n_disabili" value="0">
-            </div>
-        </section>
+        <main class="grid-container">
+            <div class="input-side">
+                
+                <div class="glass-card">
+                    <h3><i class="fas fa-users"></i> Nucleo Familiare</h3>
+                    <div class="input-group">
+                        <label>Numero componenti</label>
+                        <input type="number" id="n_componenti" value="1" min="1">
+                    </div>
+                    <div class="checkbox-list">
+                        <div class="check-item">
+                            <input type="checkbox" id="entrambi_genitori_lavorano">
+                            <label>Entrambi i genitori lavorano (da 6+ mesi)</label>
+                        </div>
+                        <div class="check-item">
+                            <input type="checkbox" id="genitore_solo">
+                            <label>Genitore solo con figli minori</label>
+                        </div>
+                        <div class="check-item">
+                            <input type="checkbox" id="figli_minori_3">
+                            <label>Presenza figli < 3 anni</label>
+                        </div>
+                    </div>
+                </div>
 
-        <section class="card">
-            <h2>Sezione B e C - Casa di abitazione e Patrimonio Immobiliare</h2>
-            <div class="row">
-                <label>Tipologia abitazione:</label>
-                <select id="tipo_casa" onchange="toggleCasa()">
-                    <option value="proprieta">Proprietà</option>
-                    <option value="locazione">Locazione (Affitto)</option>
-                    <option value="altro">Altro (Comodato, etc.)</option>
-                </select>
+                <div class="glass-card">
+                    <h3><i class="fas fa-home"></i> Abitazione e Immobili</h3>
+                    <div class="input-group">
+                        <label>Titolo di possesso</label>
+                        <select id="tipo_casa" onchange="toggleCasa()">
+                            <option value="proprieta">Proprietà</option>
+                            <option value="locazione">In Locazione (Affitto)</option>
+                            <option value="altro">Altro / Comodato</option>
+                        </select>
+                    </div>
+                    <div id="div_affitto" class="hidden">
+                        <label>Canone annuo affitto (€)</label>
+                        <input type="number" id="canone_affitto" placeholder="Es: 6000">
+                    </div>
+                    <div id="div_proprieta" class="grid-2">
+                        <div class="input-group">
+                            <label>Valore IMU Casa (€)</label>
+                            <input type="number" id="valore_casa" placeholder="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Mutuo residuo (€)</label>
+                            <input type="number" id="mutuo_casa" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-wallet"></i> Redditi e Risparmi</h3>
+                    <div class="input-group">
+                        <label>Redditi complessivi nucleo (€)</label>
+                        <input type="number" id="reddito_totale" placeholder="Somma redditi netti">
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Patrimonio Mobiliare (€)</label>
+                            <input type="number" id="patr_mobiliare" placeholder="Conti e carte">
+                        </div>
+                        <div class="input-group">
+                            <label>Titoli di Stato / BTP (€)</label>
+                            <input type="number" id="titoli_stato" placeholder="Esclusione 50k">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-main" onclick="eseguiCalcolo()">
+                    GENERA SIMULAZIONE <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-            <div id="div_affitto" style="display:none">
-                <label>Canone annuale locazione (€):</label>
-                <input type="number" id="canone_affitto" value="0">
+
+            <div class="output-side">
+                <div id="risultato" class="result-card hidden">
+                    <div class="result-header">Risultato Elaborato</div>
+                    <div class="isee-value">€ <span id="res_isee">0,00</span></div>
+                    <div class="stats">
+                        <div class="stat-item"><span>ISR (Reddito)</span> <b id="res_isr">0</b></div>
+                        <div class="stat-item"><span>ISP (Patrimonio)</span> <b id="res_isp">0</b></div>
+                        <div class="stat-item"><span>Parametro SE</span> <b id="res_se">0</b></div>
+                    </div>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle"></i>
+                        Questo calcolo include le franchigie 2026 sui titoli di stato e sulla prima casa.
+                    </div>
+                </div>
             </div>
-            <div id="div_proprieta">
-                <label>Valore IMU Casa Abitazione (€):</label>
-                <input type="number" id="valore_casa" value="0">
-                <label>Quota residua mutuo casa (€):</label>
-                <input type="number" id="mutuo_casa" value="0">
-            </div>
-            <hr>
-            <label>Altri immobili (Valore IMU totale):</label>
-            <input type="number" id="altri_immobili" value="0">
-            <label>Mutuo residuo altri immobili:</label>
-            <input type="number" id="mutuo_altri" value="0">
-        </section>
-
-        <section class="card">
-            <h2>Sezione D - Patrimonio Mobiliare</h2>
-            <label>Somma Saldi/Giacenze medie (il valore maggiore) (€):</label>
-            <input type="number" id="patr_mobiliare" value="0">
-            <label>Titoli di Stato / Buoni Fruttiferi (Esenzione 2026):</label>
-            <input type="number" id="titoli_stato" value="0">
-        </section>
-
-        <section class="card">
-            <h2>Sezione E - Redditi</h2>
-            <label>Somma redditi netti di tutto il nucleo (€):</label>
-            <input type="number" id="reddito_totale" value="0">
-        </section>
-
-        <button class="btn-calcola" onclick="eseguiCalcolo()">CALCOLA ISEE</button>
-
-        <section id="risultato" class="card result-card" style="display:none">
-            <h2>Sezione F - Risultato della simulazione</h2>
-            <div class="res-line">ISR (Reddito): <span id="res_isr">0</span>€</div>
-            <div class="res-line">ISP (Patrimonio): <span id="res_isp">0</span>€</div>
-            <div class="res-line">ISE: <span id="res_ise">0</span>€</div>
-            <div class="res-line">Parametro SE: <span id="res_se">0</span></div>
-            <div class="res-final">VALORE ISEE: <span id="res_isee">0</span>€</div>
-        </section>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
